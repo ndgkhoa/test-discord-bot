@@ -1,4 +1,6 @@
+import express from 'express' // Thêm express
 import dotenv from 'dotenv'
+
 import { client } from './client'
 import { REST, Routes } from 'discord.js'
 import { commands } from './commands'
@@ -15,6 +17,18 @@ async function main() {
       body: commands.map((cmd) => cmd.data.toJSON())
     })
     console.log('Đăng ký commands mới thành công!')
+
+    // Tạo HTTP server đơn giản
+    const app = express()
+    const port = process.env.PORT || 3000
+
+    app.get('/', (req, res) => {
+      res.send('Discord Bot is running!')
+    })
+
+    app.listen(port, () => {
+      console.log(`HTTP server running on port ${port}`)
+    })
 
     // Đăng nhập bot
     await client.login(process.env.DISCORD_TOKEN)
