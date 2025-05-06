@@ -1,33 +1,33 @@
 import { EmbedBuilder } from 'discord.js'
-import { UserData } from '../services/google-sheets'
+
+import { PolicyData } from '../services/policy-service'
 import { LocationInfo } from '../services/ocr-service'
 
-export const createAllDataEmbed = (users: UserData[]) => {
+export const createAllDataEmbed = (policyList: PolicyData[]) => {
   const embed = new EmbedBuilder()
-    .setTitle('Danh sách điểm')
+    .setTitle('Danh sách chính sách')
     .setColor(0x0099ff)
     .setDescription('Dữ liệu được lấy từ Google Sheets')
     .setTimestamp()
 
-  users.forEach((user) => {
+  policyList.forEach((policy) => {
     embed.addFields({
-      name: user.name,
-      value: `ID: ${user.id}\nĐiểm: ${user.score}\nGhi chú: ${user.note || 'Không có'}`,
-      inline: true
+      name: policy.policy_name,
+      value: `ID: ${policy.id}\nĐiểm tối thiểu: ${policy.score}\nGhi chú: ${policy.note || 'Không có'}`
     })
   })
 
   return embed
 }
 
-export const createUserEmbed = (user: UserData) => {
+export const createUserEmbed = (policy: PolicyData) => {
   return new EmbedBuilder()
-    .setTitle('Thông tin của bạn')
+    .setTitle('Thông tin chính sách')
     .setColor(0x00ff00)
     .addFields(
-      { name: 'Tên', value: user.name, inline: true },
-      { name: 'Điểm', value: user.score, inline: true },
-      { name: 'Ghi chú', value: user.note || 'Không có', inline: false }
+      { name: 'Chính sách', value: policy.policy_name, inline: true },
+      { name: 'Điểm tối thiểu', value: policy.score, inline: true },
+      { name: 'Ghi chú', value: policy.note || 'Không có', inline: false }
     )
     .setTimestamp()
 }

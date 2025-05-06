@@ -3,8 +3,9 @@ import Tesseract from 'tesseract.js'
 export interface LocationInfo {
   dateTime?: string
   coordinates?: string
-  address?: string
-  mapsUrl?: string
+  address?: string | null
+  mapsUrl?: string | null
+  confidence?: number
 }
 
 export const extractLocationInfo = async (imageUrl: string): Promise<LocationInfo> => {
@@ -31,13 +32,11 @@ export const extractLocationInfo = async (imageUrl: string): Promise<LocationInf
     if (coordsLineIndex !== -1) {
       coordinates = lines[coordsLineIndex].replace(/,/g, '.')
 
-      // Lấy nhiều dòng tiếp theo làm địa chỉ
       const addressLines: string[] = []
       for (let i = coordsLineIndex + 1; i < lines.length; i++) {
         let line = lines[i]
         if (line.length < 3) break
 
-        // Xóa dấu ':' nếu có ở đầu dòng
         if (line.startsWith(':')) {
           line = line.slice(1).trim()
         }

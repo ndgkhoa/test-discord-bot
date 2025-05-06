@@ -1,7 +1,8 @@
 import { SlashCommandBuilder } from 'discord.js'
-import { Command } from '../types/command'
-import { extractLocationInfo } from '../services/ocr-service'
-import { createLocationEmbed } from '../utils/embed'
+
+import { Command } from '~/types/command'
+import { extractLocationInfo } from '~/services/ocr-service'
+import { createLocationEmbed } from '~/utils/embed'
 
 export const readLocation: Command = {
   data: new SlashCommandBuilder()

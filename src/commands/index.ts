@@ -1,5 +1,6 @@
-import { getAll } from './get-all'
-import { getMe } from './get-me'
-import { readLocation } from './read-location'
+import { getAll } from '~/commands/get-all'
+import { getDetail } from '~/commands/get-detail'
+import { readLocation } from '~/commands/read-location'
+import { compareCoords } from '~/commands/compare-coords'
 
-export const commands = [getAll, getMe, readLocation]
+export const commands = [getAll, getDetail, readLocation, compareCoords]

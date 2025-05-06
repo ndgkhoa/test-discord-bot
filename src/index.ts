@@ -7,20 +7,20 @@ dotenv.config()
 
 async function main() {
   try {
-    // Đăng ký commands
     const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN!)
 
-    console.log('Đang đăng ký commands...')
+    // Đăng ký commands mới
+    console.log('Đang đăng ký commands mới...')
     await rest.put(Routes.applicationCommands(process.env.DISCORD_CLIENT_ID!), {
       body: commands.map((cmd) => cmd.data.toJSON())
     })
-    console.log('Đăng ký commands thành công!')
+    console.log('Đăng ký commands mới thành công!')
 
     // Đăng nhập bot
     await client.login(process.env.DISCORD_TOKEN)
     console.log('Bot đã sẵn sàng!')
   } catch (error) {
-    console.error('Khởi động bot thất bại:', error)
+    console.error('Lỗi khi khởi động bot:', error)
     process.exit(1)
   }
 }
